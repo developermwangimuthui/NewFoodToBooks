@@ -169,7 +169,7 @@ $(document).ready(function () {
     });
     $("#awcb2-button-rent").on('click', function () {
         var title = $("#awcb2-title").text();
-        console.log( obj);
+        console.log(obj);
 
         obj['Checkout'].push({ "type": "buy", "Name": title, "Price": "20" });
         localStorage.setItem('Checkout', JSON.stringify(obj));
@@ -3853,13 +3853,27 @@ function allStorage() {
         values.push(localStorage.getItem(keys[i]));
     }
     console.log(myobj);
+    var total = 0;
+    for (var i = 0; i < myobj.Checkout.length; i++) {
+        var checkout2 = myobj.Checkout[i];
+        var checkoutPrice2 = parseInt(checkout2.Price);
+        total = total +checkoutPrice2 ;
+
+    }
+
+    console.log(total);
+    
+            $("#cart-subtotal").empty();
+            $("#cart-subtotal").append(total);
     for (var i = 0; i < myobj.Checkout.length; i++) {
         var checkout = myobj.Checkout[i];
-        console.log(checkout);
 
         var checkoutType = checkout.type;
         var checkoutName = checkout.Name;
-        var checkoutPrice = checkout.Price;
+        var checkoutPrice = parseInt(checkout.Price);
+
+
+        // var totalPrice = 
         $("#cart-items").append('<div class="product">' +
 
             '<div class="product-details">' +
@@ -3876,8 +3890,8 @@ function allStorage() {
             ' Remove' +
             ' </button>' +
             '</div>' + '<div class="product-line-price">' + checkoutPrice + '</div>' +
-            '</div>'         
-    );
+            '</div>'
+        );
 
     }
 
